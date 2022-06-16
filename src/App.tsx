@@ -1,11 +1,18 @@
 import React from 'react';
+import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import BoardArea from './components/BoardArea'
 
 function App() {
   return (
-    <h1 className="opacity-50 md:w-1/2 bg-sky-700 text-3xl hover:text-2xl font-bold underline">
-      Hello world!
-    </h1>
-  );
+    <div className="flex">
+      <Sidebar />
+      <div className="w-full">
+        <Header />
+        <BoardArea />
+      </div>
+    </div>
+  )
 }
 
 export default App;
