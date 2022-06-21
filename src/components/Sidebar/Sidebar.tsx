@@ -1,21 +1,22 @@
-import { useState } from 'react'
 import SelectBoard from './SelectBoard'
 import DarkModeSelect from './DarkModeSelect'
 import Logo from '../Logo'
+import { Board } from '../../types'
 
 type SidebarProps = {
+    boardsData: Board[];
     isDarkMode: boolean;
     setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
     showSidebar: boolean;
     setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Sidebar = ({ isDarkMode, setIsDarkMode, showSidebar, setShowSidebar }:SidebarProps) => {
+const Sidebar = ({ boardsData, isDarkMode, setIsDarkMode, showSidebar, setShowSidebar }:SidebarProps) => {
 
     return (
         <div className={`${!showSidebar && "hidden"} flex flex-col justify-between md:w-[261px] lg:w-[300px] h-screen border-r border-l-lines pt-8 dark:bg-d-gray dark:border-d-lines`}>
             <div>
                 <Logo isDarkMode={isDarkMode} showSidebar={showSidebar} />
-                <SelectBoard />
+                <SelectBoard boardsData={boardsData} />
             </div>
             <div className="mb-11">
                 <DarkModeSelect isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
