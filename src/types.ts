@@ -19,3 +19,8 @@ export interface Board {
     name: string;
     columns: Column[];
   }
+
+export type BoardsContextType = {
+    boardsData: Board[] | null;
+    
+}
