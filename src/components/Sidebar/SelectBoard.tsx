@@ -9,7 +9,7 @@ type SelectBoardProps = {
 
 const SelectBoard = ({ boardsData, displayBoard, setDisplayBoard }:SelectBoardProps) => {
   return (
-    <section className="text-base font-bold text-m-gray">
+    <section className="text-base font-bold text-m-gray fill-m-gray">
         <h3 className="text-xs mb-4 pl-8">ALL BOARDS ({boardsData?.length})</h3>
         {boardsData && <ul className="cursor-pointer">
             {boardsData.map(board => {

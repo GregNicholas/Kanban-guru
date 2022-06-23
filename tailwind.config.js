@@ -23,7 +23,18 @@ module.exports = {
       sans: ['"Plus Jakarta Sans"', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
-    extend: {},
+    
+    extend: {
+      spacing: {
+        '70': '280px',
+      },
+      boxShadow: {
+        'task': '0 4px 6px rgba(54, 78, 126, 0.1)'
+      },
+      fontSize: {
+        '15': '15px'
+      }
+    },
   },
   plugins: [],
 }

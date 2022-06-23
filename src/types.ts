@@ -22,5 +22,4 @@ export interface Board {
 
 export type BoardsContextType = {
     boardsData: Board[] | null;
-    
 }
