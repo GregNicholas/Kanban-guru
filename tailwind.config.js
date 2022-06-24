@@ -27,6 +27,8 @@ module.exports = {
     extend: {
       spacing: {
         '70': '280px',
+        '120': '480px',
+        '131': '524px'
       },
       boxShadow: {
         'task': '0 4px 6px rgba(54, 78, 126, 0.1)'

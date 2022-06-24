@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import Button from '../Button'
 import Logo from '../Logo'
+import EditModal from '../EditModal'
 
 type HeaderProps = {
     boardName: string;
@@ -8,12 +10,16 @@ type HeaderProps = {
 }
 
 const Header = ({ boardName, isDarkMode, showSidebar }:HeaderProps) => {
+    const [showModal, setShowModal] = useState(false)
     const addTask = () => {
         console.log("add task to current board")
     }
     const nameClasses = !showSidebar ? "ml-44" : "ml-0"
+
+    const hideModal = () => setShowModal(false)
+    
     return (
-        <header className="w-full h-24 pl-6 pr-8 flex items-center justify-between border-b border-l-lines bg-white dark:bg-d-gray dark:border-d-lines">
+        <header onClick={hideModal} className="w-full h-24 pl-6 pr-8 flex items-center justify-between border-b border-l-lines bg-white dark:bg-d-gray dark:border-d-lines">
             {!showSidebar && <Logo isDarkMode={isDarkMode} showSidebar={showSidebar} /> }
             <div className={`flex items-center h-full ${nameClasses}`}>
                 {!showSidebar && <div className="w-px h-full mr-8 border-l border-l-lines dark:border-d-lines"></div>}
@@ -21,10 +27,13 @@ const Header = ({ boardName, isDarkMode, showSidebar }:HeaderProps) => {
             </div>
             <div>
                     <Button text=" + Add New Task " onClick={addTask} />
-                    <img className="h-5 ml-6 inline cursor-pointer" src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
-                        onClick={() => console.log("elipse clicked")}
+                    <div className="ml-4 p-2 inline cursor-pointer">
+                    <img className="h-5 inline" src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
+                        onClick={() => setShowModal(prev => !prev)}
                         alt="board options" 
                     />
+                    </div>
+                    {showModal && <EditModal editText="Edit Board" deleteText="Delete Board"/>}
             </div>
             
         </header>

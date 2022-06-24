@@ -7,7 +7,7 @@ type ColumnProps = {
 }
 
 const BoardColumn = ({ index, column }:ColumnProps) => {
-  console.log(index)
+
   const colColor = index%3 === 0 ? "bg-[#49C4E5]" : index%3 === 1 ? "bg-[#8471F2]" : "bg-[#67E2AE]"
   return (
     <div className="w-70 text-m-gray font-bold">

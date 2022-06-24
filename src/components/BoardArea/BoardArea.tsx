@@ -1,5 +1,6 @@
 import Button from '../Button'
 import BoardColumn from './BoardColumn'
+import NewColumn from './NewColumn'
 import { Board } from '../../types'
 
 type DisplayBoardProps = {
@@ -24,6 +25,7 @@ const BoardArea = ({ displayBoard }:DisplayBoardProps) => {
                 {displayBoard.columns.map((column, index) => (
                     <BoardColumn key={`${column.name}${index}`} index={index} column={column} />
                 )) }
+                <NewColumn onClick={addColumn} />
               </div>
             }
         </main>
