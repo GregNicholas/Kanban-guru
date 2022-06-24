@@ -17,7 +17,8 @@ module.exports = {
       'l-gray': '#F4F7FD',
       'white': '#FFFFFF',
       'red': '#EA5555',
-      'red-hover': '#FF9898'
+      'red-hover': '#FF9898',
+      'filter': 'rgba(0, 0, 0, 0.5)'
     },
     fontFamily: {
       sans: ['"Plus Jakarta Sans"', 'sans-serif'],
