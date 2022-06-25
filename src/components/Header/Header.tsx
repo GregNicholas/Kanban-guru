@@ -27,9 +27,14 @@ const Header = ({ boardName, isDarkMode, showSidebar }:HeaderProps) => {
             </div>
             <div>
                     <Button text=" + Add New Task " onClick={addTask} />
-                    <div className="ml-4 p-2 inline cursor-pointer">
+                    <div className="ml-4 p-2 inline cursor-pointer"
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                console.log("SHOW MODAL", showModal)
+                                setShowModal(prev => !prev)}}
+                    >
                     <img className="h-5 inline" src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
-                        onClick={() => setShowModal(prev => !prev)}
+                        
                         alt="board options" 
                     />
                     </div>
