@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Task } from '../../types'
-import ViewTask from './ViewTask'
+import TaskModal from './TaskModal'
 
-type TaskItemProps = {
+type TaskListItemProps = {
+  columns: string[];
   task: Task;
 }
 
-const TaskItem = ({ task }:TaskItemProps) => {
+const TaskListItem = ({ task, columns }:TaskListItemProps) => {
   const [showTask, setShowTask] = useState(false)
   const toggleTaskView = (e: { target: any; }) => {
     console.log(e)
@@ -16,9 +17,9 @@ const TaskItem = ({ task }:TaskItemProps) => {
     <div onClick={toggleTaskView} className="px-4 py-[23px] mb-5  bg-white text-black hover:text-main-purple dark:text-white dark:hover:text-main-purple dark:bg-d-gray rounded-lg shadow-task cursor-pointer">
       <div className="text-15 mb-2">{task.title}</div>
       <div className="text-xs text-m-gray">{task.subtasks.filter(sub => sub.isCompleted).length} of {task.subtasks.length} subtasks</div>
-      {showTask && <ViewTask task={task} toggleTaskView={toggleTaskView} />}
+      {showTask && <TaskModal task={task} columns={columns} toggleTaskView={toggleTaskView} />}
     </div>
   )
 }
 
-export default TaskItem
+export default TaskListItem

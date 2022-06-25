@@ -1,12 +1,13 @@
-import TaskItem from './TaskItem'
+import TaskListItem from './TaskListItem'
 import { Column } from '../../types'
 
 type ColumnProps = {
   index: number;
+  columns: string[];
   column: Column;
 }
 
-const BoardColumn = ({ index, column }:ColumnProps) => {
+const BoardColumn = ({ index, columns, column }:ColumnProps) => {
 
   const colColor = index%3 === 0 ? "bg-[#49C4E5]" : index%3 === 1 ? "bg-[#8471F2]" : "bg-[#67E2AE]"
   return (
@@ -16,7 +17,7 @@ const BoardColumn = ({ index, column }:ColumnProps) => {
         <span className="tracking-widest">{column.name} ({column.tasks.length})</span>
       </div>
       {column.tasks.length > 0 &&
-        column.tasks.map((task, index) => <TaskItem key={`${task.title}${index}`} task={task} />)
+        column.tasks.map((task, index) => <TaskListItem key={`${task.title}${index}`} columns={columns} task={task} />)
       }
     </div>
   )

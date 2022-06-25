@@ -12,7 +12,9 @@ const BoardArea = ({ displayBoard }:DisplayBoardProps) => {
         console.log("Add a new column")
     }
 
-    return (
+const columns:string[] = displayBoard.columns.map(column => column.name)
+
+return (
         <main className="flex-1 bg-l-gray dark:bg-v-dark-gray p-6 overflow-scroll">
             { 
               displayBoard.name === "" ? 
@@ -23,7 +25,7 @@ const BoardArea = ({ displayBoard }:DisplayBoardProps) => {
               :
               <div className="flex gap-6 w-fit overflow-scroll">
                 {displayBoard.columns.map((column, index) => (
-                    <BoardColumn key={`${column.name}${index}`} index={index} column={column} />
+                    <BoardColumn key={`${column.name}${index}`} index={index} columns={columns} column={column} />
                 )) }
                 <NewColumn onClick={addColumn} />
               </div>

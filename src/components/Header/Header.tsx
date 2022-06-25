@@ -34,7 +34,6 @@ const Header = ({ boardName, isDarkMode, showSidebar }:HeaderProps) => {
                                 setShowModal(prev => !prev)}}
                     >
                     <img className="h-5 inline" src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
-                        
                         alt="board options" 
                     />
                     </div>
