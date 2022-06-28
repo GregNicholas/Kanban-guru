@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Task } from '../../types'
-import TaskModal from './TaskModal'
+import TaskModal from '../TaskCard/TaskModal'
 
 type TaskListItemProps = {
   columns: string[];
