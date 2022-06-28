@@ -9,8 +9,7 @@ type TaskListItemProps = {
 
 const TaskListItem = ({ task, columns }:TaskListItemProps) => {
   const [showTask, setShowTask] = useState(false)
-  const toggleTaskView = (e: { target: any; }) => {
-    console.log(e)
+  const toggleTaskView = () => {
     setShowTask(prev => !prev)
   }
   return (

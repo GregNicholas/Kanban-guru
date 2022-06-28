@@ -7,7 +7,7 @@ import { Task } from '../../types'
 type TaskModalProps = {
     task: Task;
     columns: string[];
-    toggleTaskView: (e: any) => void;
+    toggleTaskView: () => void;
 }
 
 const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
@@ -26,7 +26,6 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
   }
   
   return (
-    // <div className="absolute top-0 left-0 h-full w-full text-xs text-m-gray bg-filter flex items-center justify-center">
     <ModalContainer>
       <div 
           className="opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg"
@@ -57,7 +56,6 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
           </div>
         </div>
       </ModalContainer>
-    // </div>
   )
 }
 

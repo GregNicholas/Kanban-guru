@@ -2,7 +2,7 @@ import React from 'react'
 
 type ButtonProps = {
     text: string;
-    onClick?: () => void;
+    onClick?: (e: any) => void;
 }
 
 const Button = ({ text, onClick }:ButtonProps) => {
