@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from '../Button'
 import Logo from '../Logo'
 import EditModal from '../EditModal'
-import TaskForm from '../TaskForm'
+import TaskForm from '../TaskForm/TaskForm'
 import { Board } from '../../types'
 
 type HeaderProps = {
