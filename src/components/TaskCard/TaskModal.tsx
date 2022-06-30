@@ -2,6 +2,8 @@ import { useState } from 'react'
 import ModalContainer from '../ModalContainer'
 import SubtaskItem from './SubtaskItem'
 import Select from '../Select'
+import EditModal from '../EditModal'
+import TaskForm from '../TaskForm/TaskForm'
 import { Task } from '../../types'
 
 type TaskModalProps = {
@@ -13,6 +15,8 @@ type TaskModalProps = {
 const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
   const [currentStatus, setCurrentStatus] = useState(task.status)
   const [subtasks, setSubtasks] = useState(task.subtasks)
+  const [showModal, setShowModal] = useState(false)
+  const [showEditTask, setShowEditTask] = useState(false)
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentStatus(e.target.value)
@@ -27,15 +31,29 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
   
   return (
     <ModalContainer>
-      <div 
-          className="opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg"
-          onClick={(e) => e.stopPropagation()}
+      {
+        showEditTask ? <TaskForm title="Edit Task" setShowTaskForm={setShowEditTask}/>
+        : <div 
+          className="opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg cursor-default"
+          onClick={(e) => {
+              e.stopPropagation()
+            }
+          }
         >
-          <div className="flex mb-6 justify-between gap-6">
+          <div className="flex mb-6 justify-between gap-6 relative">
             <h3 className="text-lg text-black dark:text-white">{task.title}</h3> 
-            <img className="h-5 inline" src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
+            <img 
+                 className="h-5 px-0.5 inline cursor-pointer" 
+                 onClick={() => setShowModal(prev => !prev)}
+                 src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
                  alt="board options" 
             />
+            {showModal && <EditModal 
+                            editText="Edit Task" 
+                            deleteText="Delete Task"
+                            handleEdit={() => setShowEditTask(true)}
+                            handleDelete={() => console.log("DELETE TASK")}
+                          />}
           </div>
           <p className="text-[13px] font-medium mb-6 leading-6">{task.description}</p>
           <div className="flex flex-col mb-6">
@@ -54,7 +72,9 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
             <h5 className="mb-2">Current Status</h5>
             <Select currentStatus={currentStatus} handleStatusChange={handleStatusChange} columns={columns} />
           </div>
-        </div>
+          
+        </div>}
+        
       </ModalContainer>
   )
 }

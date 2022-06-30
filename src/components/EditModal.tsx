@@ -1,14 +1,17 @@
 type EditModalProps = {
     editText: string;
     deleteText: string;
+    handleEdit: React.MouseEventHandler<HTMLParagraphElement>;
+    handleDelete: () => void;
 }
 
-const EditModal = ({ editText, deleteText }:EditModalProps) => {
+const EditModal = ({ editText, deleteText, handleEdit, handleDelete }:EditModalProps) => {
+  const position = editText === "Edit Task" ? "top-6 right-[-6rem]" : "top-20 right-6"
   return (
-    <div className="flex flex-col justify-between w-48 h-24 p-4 absolute top-20 right-6 text-[13px] bg-white dark:bg-v-dark-gray rounded-lg">
+    <div className={`${position} flex flex-col justify-between w-48 h-24 p-4 absolute top-20 right-6 text-[13px]  bg-white dark:bg-v-dark-gray rounded-lg`}>
         <p 
           className="text-m-gray cursor-pointer leading-6"
-          onClick={() => console.log("EDIT BOARD")}
+          onClick={handleEdit}
         >
           {editText}
         </p>

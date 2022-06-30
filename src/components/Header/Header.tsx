@@ -30,7 +30,6 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
     
     return (
         <header onClick={() => {
-            console.log("HEADER CLICK")
             hideModal()
             setShowTaskForm(false)
         }} 
@@ -45,15 +44,19 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
                     <div className="ml-4 p-2 inline cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation()
-                                console.log("SHOW MODAL", showModal)
                                 setShowModal(prev => !prev)}}
                     >
                     <img className="h-5 inline" src={`${process.env.PUBLIC_URL}/assets/icon-vertical-ellipsis.svg`} 
                         alt="board options" 
                     />
                     </div>
-                    {showTaskForm && <TaskForm />}
-                    {showModal && <EditModal editText="Edit Board" deleteText="Delete Board"/>}
+                    {showTaskForm && <TaskForm setShowTaskForm={setShowTaskForm} title="Add New Task" />}
+                    {showModal && <EditModal 
+                                    editText="Edit Board" 
+                                    deleteText="Delete Board"
+                                    handleEdit={() => console.log("Edit board")}
+                                    handleDelete={() => console.log("Delete board")}
+                                />}
             </div>
             
         </header>
