@@ -2,7 +2,7 @@ type EditModalProps = {
     editText: string;
     deleteText: string;
     handleEdit: React.MouseEventHandler<HTMLParagraphElement>;
-    handleDelete: () => void;
+    handleDelete: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 const EditModal = ({ editText, deleteText, handleEdit, handleDelete }:EditModalProps) => {
@@ -17,7 +17,7 @@ const EditModal = ({ editText, deleteText, handleEdit, handleDelete }:EditModalP
         </p>
         <p 
           className="text-red cursor-pointer leading-6"
-          onClick={() => console.log("DELETE BOARD")}
+          onClick={handleDelete}
         >
           {deleteText}
         </p>

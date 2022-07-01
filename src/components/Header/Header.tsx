@@ -3,6 +3,7 @@ import Button from '../Button'
 import Logo from '../Logo'
 import EditModal from '../EditModal'
 import TaskForm from '../TaskForm/TaskForm'
+import DeleteWarning from '../DeleteWarning'
 import { Board } from '../../types'
 
 type HeaderProps = {
@@ -14,6 +15,7 @@ type HeaderProps = {
 const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
     const [showModal, setShowModal] = useState(false)
     const [showTaskForm, setShowTaskForm] = useState(false)
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false)
 
     const toggleShowTaskForm = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -27,9 +29,14 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
     const nameClasses = !showSidebar ? "ml-44" : "ml-0"
 
     const hideModal = () => setShowModal(false)
+
+    const handleDeleteWarning = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation()
+        setShowDeleteWarning(true)
+      }
     
     return (
-        <header onClick={() => {
+        <header onClick={(e) => {
             hideModal()
             setShowTaskForm(false)
         }} 
@@ -55,8 +62,9 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
                                     editText="Edit Board" 
                                     deleteText="Delete Board"
                                     handleEdit={() => console.log("Edit board")}
-                                    handleDelete={() => console.log("Delete board")}
+                                    handleDelete={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => handleDeleteWarning(e)}
                                 />}
+                    {showDeleteWarning && <DeleteWarning closeModal={() => setShowDeleteWarning(false)} />}
             </div>
             
         </header>

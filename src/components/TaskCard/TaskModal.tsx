@@ -4,6 +4,7 @@ import SubtaskItem from './SubtaskItem'
 import Select from '../Select'
 import EditModal from '../EditModal'
 import TaskForm from '../TaskForm/TaskForm'
+import DeleteWarning from '../DeleteWarning'
 import { Task } from '../../types'
 
 type TaskModalProps = {
@@ -17,6 +18,7 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
   const [subtasks, setSubtasks] = useState(task.subtasks)
   const [showModal, setShowModal] = useState(false)
   const [showEditTask, setShowEditTask] = useState(false)
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false)
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentStatus(e.target.value)
@@ -28,11 +30,16 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
     newSubtasks[index].isCompleted = isChecked
     setSubtasks(newSubtasks)
   }
+
+  const handleDeleteWarning = () => {
+    setShowDeleteWarning(true)
+  }
   
   return (
     <ModalContainer>
       {
         showEditTask ? <TaskForm title="Edit Task" setShowTaskForm={setShowEditTask}/>
+        : showDeleteWarning ? <DeleteWarning closeModal={() => setShowDeleteWarning(false)} />
         : <div 
           className="opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg cursor-default"
           onClick={(e) => {
@@ -52,7 +59,7 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
                             editText="Edit Task" 
                             deleteText="Delete Task"
                             handleEdit={() => setShowEditTask(true)}
-                            handleDelete={() => console.log("DELETE TASK")}
+                            handleDelete={handleDeleteWarning}
                           />}
           </div>
           <p className="text-[13px] font-medium mb-6 leading-6">{task.description}</p>
@@ -73,7 +80,8 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
             <Select currentStatus={currentStatus} handleStatusChange={handleStatusChange} columns={columns} />
           </div>
           
-        </div>}
+        </div>
+      }
         
       </ModalContainer>
   )
