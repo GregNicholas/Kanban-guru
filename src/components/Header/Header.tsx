@@ -64,7 +64,13 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
                                     handleEdit={() => console.log("Edit board")}
                                     handleDelete={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => handleDeleteWarning(e)}
                                 />}
-                    {showDeleteWarning && <DeleteWarning closeModal={() => setShowDeleteWarning(false)} />}
+                    {showDeleteWarning && 
+                        <DeleteWarning 
+                            closeModal={() => setShowDeleteWarning(false)} 
+                            title="Delete this board?"
+                            message={`Are you sure you want to delete the ‘${displayBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
+                        />
+                    }
             </div>
             
         </header>

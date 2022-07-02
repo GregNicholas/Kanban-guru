@@ -39,7 +39,12 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
     <ModalContainer>
       {
         showEditTask ? <TaskForm title="Edit Task" setShowTaskForm={setShowEditTask}/>
-        : showDeleteWarning ? <DeleteWarning closeModal={() => setShowDeleteWarning(false)} />
+        : showDeleteWarning 
+        ? <DeleteWarning 
+            closeModal={() => setShowDeleteWarning(false)} 
+            title="Delete this task?" 
+            message={`Are you sure you want to delete the ‘${task.title}’ task and its subtasks? This action cannot be reversed.`}
+          />
         : <div 
           className="opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg cursor-default"
           onClick={(e) => {
