@@ -3,7 +3,7 @@ import ModalContainer from '../ModalContainer'
 import SubtaskItem from './SubtaskItem'
 import Select from '../Select'
 import EditModal from '../EditModal'
-import TaskForm from '../TaskForm/TaskForm'
+import TaskForm from '../Forms/TaskForm'
 import DeleteWarning from '../DeleteWarning'
 import { Task } from '../../types'
 

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Button from '../Button'
 import Logo from '../Logo'
 import EditModal from '../EditModal'
-import TaskForm from '../TaskForm/TaskForm'
+import TaskForm from '../Forms/TaskForm'
 import DeleteWarning from '../DeleteWarning'
 import { Board } from '../../types'
 
