@@ -4,6 +4,7 @@ import Logo from '../Logo'
 import EditModal from '../EditModal'
 import TaskForm from '../Forms/TaskForm'
 import DeleteWarning from '../DeleteWarning'
+import BoardForm from '../Forms/BoardForm'
 import { Board } from '../../types'
 
 type HeaderProps = {
@@ -16,6 +17,7 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
     const [showModal, setShowModal] = useState(false)
     const [showTaskForm, setShowTaskForm] = useState(false)
     const [showDeleteWarning, setShowDeleteWarning] = useState(false)
+    const [showBoardForm, setShowBoardForm] = useState(false)
 
     const toggleShowTaskForm = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -61,7 +63,7 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
                     {showModal && <EditModal 
                                     editText="Edit Board" 
                                     deleteText="Delete Board"
-                                    handleEdit={() => console.log("Edit board")}
+                                    handleEdit={setShowBoardForm}
                                     handleDelete={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => handleDeleteWarning(e)}
                                 />}
                     {showDeleteWarning && 
@@ -71,6 +73,7 @@ const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
                             message={`Are you sure you want to delete the ‘${displayBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
                         />
                     }
+                    {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" />}
             </div>
             
         </header>

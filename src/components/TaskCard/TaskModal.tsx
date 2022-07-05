@@ -63,7 +63,7 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
             {showModal && <EditModal 
                             editText="Edit Task" 
                             deleteText="Delete Task"
-                            handleEdit={() => setShowEditTask(true)}
+                            handleEdit={setShowEditTask}
                             handleDelete={handleDeleteWarning}
                           />}
           </div>

@@ -9,7 +9,7 @@ type SelectProps = {
 const Select = ({ currentStatus, handleStatusChange, columns}:SelectProps) => {
   return (
     <select 
-        className="w-full px-4 rounded h-10 bg-white dark:bg-d-gray border border-l-lines dark:border-m-gray"
+        className="w-full px-4 rounded h-10 text-[13px] font-medium text-black dark:text-white bg-white dark:bg-d-gray border border-l-lines dark:border-m-gray"
         value={currentStatus}
         onChange={handleStatusChange}
     >

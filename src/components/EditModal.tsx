@@ -1,7 +1,7 @@
 type EditModalProps = {
     editText: string;
     deleteText: string;
-    handleEdit: React.MouseEventHandler<HTMLParagraphElement>;
+    handleEdit: React.Dispatch<React.SetStateAction<boolean>>;
     handleDelete: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
@@ -11,7 +11,7 @@ const EditModal = ({ editText, deleteText, handleEdit, handleDelete }:EditModalP
     <div className={`${position} flex flex-col justify-between w-48 h-24 p-4 absolute top-20 right-6 text-[13px]  bg-white dark:bg-v-dark-gray rounded-lg`}>
         <p 
           className="text-m-gray cursor-pointer leading-6"
-          onClick={handleEdit}
+          onClick={() => handleEdit(true)}
         >
           {editText}
         </p>
