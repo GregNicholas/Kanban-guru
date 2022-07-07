@@ -5,29 +5,28 @@ import EditModal from '../EditModal'
 import TaskForm from '../Forms/TaskForm'
 import DeleteWarning from '../DeleteWarning'
 import BoardForm from '../Forms/BoardForm'
+import { RootState } from "../../app/store";
+import { useSelector, useDispatch } from 'react-redux'
 import { Board } from '../../types'
 
 type HeaderProps = {
-    displayBoard: Board;
     isDarkMode: boolean;
     showSidebar: boolean;
 }
 
-const Header = ({ displayBoard, isDarkMode, showSidebar }:HeaderProps) => {
+const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
     const [showModal, setShowModal] = useState(false)
     const [showTaskForm, setShowTaskForm] = useState(false)
     const [showDeleteWarning, setShowDeleteWarning] = useState(false)
     const [showBoardForm, setShowBoardForm] = useState(false)
 
+    const displayBoard = useSelector((state: RootState) => state.board.value)
+
     const toggleShowTaskForm = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
         setShowTaskForm(prev => !prev)
-        console.log("BUTTON CLICK TASK FORM")
     }
 
-    const addTask = () => {
-        console.log("add task to current board")
-    }
     const nameClasses = !showSidebar ? "ml-44" : "ml-0"
 
     const hideModal = () => setShowModal(false)

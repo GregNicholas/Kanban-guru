@@ -1,16 +1,13 @@
 import { useState } from 'react'
 import SelectBoardTitle from "./SelectBoardTitle"
 import BoardForm from '../Forms/BoardForm'
-import { Board } from '../../types'
+import { RootState } from "../../app/store";
+import { useSelector, useDispatch } from 'react-redux'
 
-type SelectBoardProps = {
-    boardsData: Board[] | null
-    displayBoard: Board
-    setDisplayBoard: React.Dispatch<React.SetStateAction<Board>>
-}
-
-const SelectBoard = ({ boardsData, displayBoard, setDisplayBoard }:SelectBoardProps) => {
+const SelectBoard = () => {
   const [ showBoardForm, setShowBoardForm ] = useState(false)
+  const boardsData = useSelector((state: RootState) => state.boards.value)
+
   return (
     <section className="text-base font-bold text-m-gray fill-m-gray" 
              onClick={(e) => {
@@ -22,8 +19,7 @@ const SelectBoard = ({ boardsData, displayBoard, setDisplayBoard }:SelectBoardPr
         {boardsData && <ul className="cursor-pointer">
             {boardsData.map(board => {
                 return <SelectBoardTitle key={board.name} 
-                          board={board} displayBoard={displayBoard} 
-                          setDisplayBoard={setDisplayBoard} 
+                          board={board} 
                 />
             })}
             <li 
