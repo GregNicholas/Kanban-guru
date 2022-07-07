@@ -13,23 +13,21 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
   const [showSidebar, setShowSidebar] = useState<boolean>(true)
   const [boardsData, setBoardsData] = useState<Board[] | null>(data ? data.boards : null)
-  const [displayBoard, setDisplayBoard] = useState<Board>(boardsData ? boardsData[0] : {name: "", columns: []})
-
-  const boardzzzData = useSelector((state: RootState) => state.boardsSlice)
+  const boardzData = useSelector((state: RootState) => state.boards.value)
+  const [displayBoard, setDisplayBoard] = useState<Board>({name: "", columns: []})
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const bData = data.boards;
-    dispatch(getExistingBoards({value: bData}))
+    dispatch(getExistingBoards(data.boards))
   }, [])
 
-console.log("BoardsData from slice ", boardzzzData)
+console.log("BoardsData from slice ", boardzData)
 
   return (
     <div className={`flex h-full ${isDarkMode && "dark"}`}>
       <Sidebar 
-          boardsData={boardsData} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} 
+          boardsData={boardzData} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} 
           showSidebar={showSidebar} setShowSidebar={setShowSidebar} 
           displayBoard={displayBoard} setDisplayBoard={setDisplayBoard}      
       />

@@ -53,7 +53,7 @@ const TaskForm = ({ setShowTaskForm, title }:TaskFormProps) => {
   return (
     <ModalContainer>
         <div 
-          className="opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg"
+          className="z-10 opacity-100 w-120 p-8 bg-white dark:bg-d-gray rounded-lg"
           onClick={(e) => e.stopPropagation()}
         >
           <form onSubmit={handleSubmit}>

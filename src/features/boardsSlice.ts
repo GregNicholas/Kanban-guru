@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Board } from "../types"
 
-interface BoardsState {
+interface boardsState {
     value: Board[]
 }
 
-const initialState = {
+const initialState: boardsState = {
     value: []
 }
 
@@ -13,8 +13,8 @@ export const boardsSlice = createSlice({
     name: "boards",
     initialState,
     reducers: {
-        getExistingBoards: (state, action: PayloadAction<BoardsState>) => {
-            console.log(state.value)
+        getExistingBoards: (state, action: PayloadAction<Board[]>) => {
+            state.value = action.payload
         }
     }
 })
