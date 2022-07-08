@@ -48,7 +48,9 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
                 <h2 className={`font-bold font-sans text-black dark:text-white text-center text-2xl`}>{displayBoard.name}</h2>
             </div>
             <div>
-                    <Button text=" + Add New Task " onClick={toggleShowTaskForm} />
+                { displayBoard.name  
+                ? <>
+                    <Button text=" + Add New Task " onClick={toggleShowTaskForm} widthFull={false} />
                     <div className="ml-4 p-2 inline cursor-pointer"
                             onClick={(e) => {
                                 e.stopPropagation()
@@ -58,21 +60,23 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
                         alt="board options" 
                     />
                     </div>
-                    {showTaskForm && <TaskForm setShowTaskForm={setShowTaskForm} title="Add New Task" />}
-                    {showModal && <EditModal 
-                                    editText="Edit Board" 
-                                    deleteText="Delete Board"
-                                    handleEdit={setShowBoardForm}
-                                    handleDelete={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => handleDeleteWarning(e)}
-                                />}
-                    {showDeleteWarning && 
-                        <DeleteWarning 
-                            closeModal={() => setShowDeleteWarning(false)} 
-                            title="Delete this board?"
-                            message={`Are you sure you want to delete the ‘${displayBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
-                        />
-                    }
-                    {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" />}
+                  </>
+                : null }
+                {showTaskForm && <TaskForm setShowTaskForm={setShowTaskForm} title="Add New Task" />}
+                {showModal && <EditModal 
+                                editText="Edit Board" 
+                                deleteText="Delete Board"
+                                handleEdit={setShowBoardForm}
+                                handleDelete={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => handleDeleteWarning(e)}
+                            />}
+                {showDeleteWarning && 
+                    <DeleteWarning 
+                        closeModal={() => setShowDeleteWarning(false)} 
+                        title="Delete this board?"
+                        message={`Are you sure you want to delete the ‘${displayBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
+                    />
+                }
+                {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" />}
             </div>
             
         </header>
