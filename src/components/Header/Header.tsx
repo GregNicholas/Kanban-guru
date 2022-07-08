@@ -5,9 +5,11 @@ import EditModal from '../EditModal'
 import TaskForm from '../Forms/TaskForm'
 import DeleteWarning from '../DeleteWarning'
 import BoardForm from '../Forms/BoardForm'
+import { useDispatch } from 'react-redux'
 import { RootState } from "../../app/store";
-import { useSelector, useDispatch } from 'react-redux'
-import { Board } from '../../types'
+import { useSelector } from 'react-redux'
+import { deleteBoard } from '../../features/boardsSlice'
+import { setDisplayBoard } from '../../features/displayBoardSlice'
 
 type HeaderProps = {
     isDarkMode: boolean;
@@ -22,6 +24,8 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
 
     const displayBoard = useSelector((state: RootState) => state.board.value)
 
+    const dispatch = useDispatch()
+
     const toggleShowTaskForm = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
         setShowTaskForm(prev => !prev)
@@ -35,6 +39,11 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
         e.stopPropagation()
         setShowDeleteWarning(true)
       }
+
+    const handleDelete = () => {
+        dispatch(deleteBoard(displayBoard.name))
+        dispatch(setDisplayBoard({name: "", columns: []}))
+    }
     
     return (
         <header onClick={(e) => {
@@ -72,11 +81,12 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
                 {showDeleteWarning && 
                     <DeleteWarning 
                         closeModal={() => setShowDeleteWarning(false)} 
+                        handleDelete={handleDelete}
                         title="Delete this board?"
                         message={`Are you sure you want to delete the ‘${displayBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
                     />
                 }
-                {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" />}
+                {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" displayBoard={displayBoard} />}
             </div>
             
         </header>

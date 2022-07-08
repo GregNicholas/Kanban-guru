@@ -5,20 +5,29 @@ import Select from '../Select'
 import EditModal from '../EditModal'
 import TaskForm from '../Forms/TaskForm'
 import DeleteWarning from '../DeleteWarning'
+import { RootState } from "../../app/store";
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { deleteTask } from '../../features/boardsSlice'
 import { Task } from '../../types'
 
 type TaskModalProps = {
-    task: Task;
-    columns: string[];
-    toggleTaskView: () => void;
+    task: Task
+    columns: string[]
+    column: string
+    toggleTaskView: () => void
 }
 
-const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
+const TaskModal = ({ task, columns, column, toggleTaskView }:TaskModalProps) => {
   const [currentStatus, setCurrentStatus] = useState(task.status)
   const [subtasks, setSubtasks] = useState(task.subtasks)
   const [showModal, setShowModal] = useState(false)
   const [showEditTask, setShowEditTask] = useState(false)
   const [showDeleteWarning, setShowDeleteWarning] = useState(false)
+
+  const dispatch = useDispatch()
+
+  const boardName = useSelector((state: RootState) => state.board.value.name)
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentStatus(e.target.value)
@@ -34,6 +43,10 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
   const handleDeleteWarning = () => {
     setShowDeleteWarning(true)
   }
+
+  const handleDelete = () => {
+    dispatch(deleteTask({task: task.title, board: boardName, column: column}))
+  }
   
   return (
     <ModalContainer>
@@ -42,6 +55,7 @@ const TaskModal = ({ task, columns, toggleTaskView }:TaskModalProps) => {
         : showDeleteWarning 
         ? <DeleteWarning 
             closeModal={() => setShowDeleteWarning(false)} 
+            handleDelete={handleDelete}
             title="Delete this task?" 
             message={`Are you sure you want to delete the ‘${task.title}’ task and its subtasks? This action cannot be reversed.`}
           />

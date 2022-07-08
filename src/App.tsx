@@ -12,15 +12,12 @@ import data from './data.json'
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
   const [showSidebar, setShowSidebar] = useState<boolean>(true)
-  // const boardsData = useSelector((state: RootState) => state.boards.value)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getExistingBoards(data.boards))
   }, [])
-
-// console.log("BoardsData from slice ", boardsData)
 
   return (
     <div className={`flex h-full ${isDarkMode && "dark"}`}>

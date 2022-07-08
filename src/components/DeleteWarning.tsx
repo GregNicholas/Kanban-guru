@@ -2,12 +2,13 @@ import ModalContainer from './ModalContainer'
 import Button from './Button'
 
 type DeleteWarningProps = {
-  closeModal: (value: React.SetStateAction<boolean>) => void;
-  title: string;
-  message: string;
+  closeModal: (value: React.SetStateAction<boolean>) => void
+  handleDelete: () => void
+  title: string
+  message: string
 }
 
-const DeleteWarning = ({ closeModal, title, message }: DeleteWarningProps) => {
+const DeleteWarning = ({ closeModal, handleDelete, title, message }: DeleteWarningProps) => {
   const confirmDeleteStyle = "bg-red text-white w-[200px]"
   const cancelDeleteStyle = "bg-[#e6e6ff] dark:bg-white text-main-purple w-[200px]"
 
@@ -19,7 +20,14 @@ const DeleteWarning = ({ closeModal, title, message }: DeleteWarningProps) => {
           {message}
         </p>
         <div className="flex gap-4">
-          <Button text="Delete" customStyle={confirmDeleteStyle} onClick={() => console.log("Delete task confirmed")} />
+          <Button 
+            text="Delete" 
+            customStyle={confirmDeleteStyle} 
+            onClick={() => {
+              handleDelete() 
+              closeModal(true)
+            }} 
+          />
           <Button text="Cancel" customStyle={cancelDeleteStyle} onClick={closeModal} />
         </div>
         
