@@ -23,6 +23,8 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
     const [showBoardForm, setShowBoardForm] = useState(false)
 
     const displayBoard = useSelector((state: RootState) => state.board.value)
+    const btest = useSelector((state: RootState) => state.boards.value[1])
+    console.log("BTEST@!@!!: ", btest)
 
     const dispatch = useDispatch()
 

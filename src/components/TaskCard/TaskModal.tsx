@@ -9,6 +9,7 @@ import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { deleteTask } from '../../features/boardsSlice'
+import { setDisplayBoard } from '../../features/displayBoardSlice'
 import { Task } from '../../types'
 
 type TaskModalProps = {
@@ -45,7 +46,8 @@ const TaskModal = ({ task, columns, column, toggleTaskView }:TaskModalProps) => 
   }
 
   const handleDelete = () => {
-    dispatch(deleteTask({task: task.title, board: boardName, column: column}))
+    dispatch(deleteTask({taskTitle: task.title, boardName: boardName, columnName: column}))
+
   }
   
   return (
