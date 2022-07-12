@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import ModalContainer from '../ModalContainer'
 import Button from '../Button'
 import FormLabel from './FormLabel'
+// import { RootState } from "../../app/store";
+// import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { addBoard, editBoard } from '../../features/boardsSlice'
 import { setDisplayBoard } from '../../features/displayBoardSlice'
@@ -10,7 +12,8 @@ import { Board } from '../../types'
 type BoardFormProps = {
   setShowBoardForm: React.Dispatch<React.SetStateAction<boolean>>
   title: string
-  displayBoard?: Board | null
+  boardIndex?: number | null
+  currentBoard?: Board | null
 }
 
 type boardInfo = {
@@ -18,8 +21,12 @@ type boardInfo = {
   columns: string[]
 }
 
-const BoardForm = ({ setShowBoardForm, title, displayBoard=null }:BoardFormProps) => {
-  const [board, setBoard] = useState<Board>(displayBoard ? {name: displayBoard.name, columns: displayBoard.columns} 
+const BoardForm = ({ setShowBoardForm, title, boardIndex=null, currentBoard=null }:BoardFormProps) => {
+  // const displayBoardIndex = useSelector((state: RootState) => state.board.value)
+  // console.log("BOARD FORM: ", boardIndex)
+  // const displayBoard = useSelector((state: RootState) => state.boards.value[displayBoardIndex])
+
+  const [board, setBoard] = useState<Board>(currentBoard ? {name: currentBoard.name, columns: currentBoard.columns} 
                             : {
                                 name: "",
                                 columns: [{name: 'Todo', tasks: []}, {name: 'Doing', tasks: []}]
@@ -57,15 +64,16 @@ const BoardForm = ({ setShowBoardForm, title, displayBoard=null }:BoardFormProps
     e.preventDefault()
     const boardData = {
           name: board.name,
-          columns: board.columns
+          columns: board.columns,
+          id: boardIndex
       }
-
-    if(displayBoard){
+console.log("BOARD INDEX: ", boardIndex)
+    if(boardIndex !== null){
       dispatch(editBoard(boardData))
-      dispatch(setDisplayBoard(boardData))
+      // dispatch(setDisplayBoard(boardData))
     } else {
       dispatch(addBoard(boardData))
-      dispatch(setDisplayBoard(boardData))
+      // dispatch(setDisplayBoard(boardData))
     }
 
     setShowBoardForm(false)

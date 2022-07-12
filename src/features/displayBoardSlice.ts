@@ -2,18 +2,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Board } from "../types"
 
 interface displayBoardState {
-    value: Board
+    value: number
 }
 
 const initialState: displayBoardState = {
-    value: {name: "", columns: []}
+    value: 0
 }
 
 export const displayBoardSlice = createSlice({
     name: "board",
     initialState,
     reducers: {
-        setDisplayBoard: (state, action: PayloadAction<Board>) => {
+        setDisplayBoard: (state, action: PayloadAction<number>) => {
             state.value = action.payload
         }
     }

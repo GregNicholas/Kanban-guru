@@ -22,10 +22,9 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
     const [showDeleteWarning, setShowDeleteWarning] = useState(false)
     const [showBoardForm, setShowBoardForm] = useState(false)
 
-    const displayBoard = useSelector((state: RootState) => state.board.value)
-    const btest = useSelector((state: RootState) => state.boards.value[1])
-    console.log("BTEST@!@!!: ", btest)
-
+    const displayBoardIndex = useSelector((state: RootState) => state.board.value)
+    const displayBoard = useSelector((state: RootState) => state.boards.value[displayBoardIndex])
+  
     const dispatch = useDispatch()
 
     const toggleShowTaskForm = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -44,7 +43,7 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
 
     const handleDelete = () => {
         dispatch(deleteBoard(displayBoard.name))
-        dispatch(setDisplayBoard({name: "", columns: []}))
+        dispatch(setDisplayBoard(0))
     }
     
     return (
@@ -56,10 +55,10 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
             {!showSidebar && <Logo isDarkMode={isDarkMode} showSidebar={showSidebar} /> }
             <div className={`flex items-center h-full ${nameClasses}`}>
                 {!showSidebar && <div className="w-px h-full mr-8 border-l border-l-lines dark:border-d-lines"></div>}
-                <h2 className={`font-bold font-sans text-black dark:text-white text-center text-2xl`}>{displayBoard.name}</h2>
+                <h2 className={`font-bold font-sans text-black dark:text-white text-center text-2xl`}>{displayBoard?.name}</h2>
             </div>
             <div>
-                { displayBoard.name  
+                { displayBoard?.name  
                 ? <>
                     <Button text=" + Add New Task " onClick={toggleShowTaskForm} widthFull={false} />
                     <div className="ml-4 p-2 inline cursor-pointer"
@@ -85,10 +84,10 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
                         closeModal={() => setShowDeleteWarning(false)} 
                         handleDelete={handleDelete}
                         title="Delete this board?"
-                        message={`Are you sure you want to delete the ‘${displayBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
+                        message={`Are you sure you want to delete the ‘${displayBoard?.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
                     />
                 }
-                {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" displayBoard={displayBoard} />}
+                {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" boardIndex={displayBoardIndex} currentBoard={displayBoard} />}
             </div>
             
         </header>

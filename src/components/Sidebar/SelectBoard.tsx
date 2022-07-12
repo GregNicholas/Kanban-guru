@@ -2,7 +2,7 @@ import { useState } from 'react'
 import SelectBoardTitle from "./SelectBoardTitle"
 import BoardForm from '../Forms/BoardForm'
 import { RootState } from "../../app/store";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const SelectBoard = () => {
   const [ showBoardForm, setShowBoardForm ] = useState(false)
@@ -17,9 +17,10 @@ const SelectBoard = () => {
     >
         <h3 className="text-xs mb-4 pl-8">ALL BOARDS ({boardsData?.length})</h3>
         {boardsData && <ul className="cursor-pointer">
-            {boardsData.map(board => {
+            {boardsData.map((board, index) => {
                 return <SelectBoardTitle key={board.name} 
                           board={board} 
+                          index={index}
                 />
             })}
             <li 

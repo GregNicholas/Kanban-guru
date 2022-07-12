@@ -20,6 +20,12 @@ export interface Board {
     columns: Column[];
   }
 
+export interface indexedBoard {
+    name: string;
+    columns: Column[];
+    id: number | null;
+}
+
 export type BoardsContextType = {
     boardsData: Board[] | null;
 }
