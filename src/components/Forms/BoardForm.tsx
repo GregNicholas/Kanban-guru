@@ -16,15 +16,7 @@ type BoardFormProps = {
   currentBoard?: Board | null
 }
 
-type boardInfo = {
-  name: string
-  columns: string[]
-}
-
 const BoardForm = ({ setShowBoardForm, title, boardIndex=null, currentBoard=null }:BoardFormProps) => {
-  // const displayBoardIndex = useSelector((state: RootState) => state.board.value)
-  // console.log("BOARD FORM: ", boardIndex)
-  // const displayBoard = useSelector((state: RootState) => state.boards.value[displayBoardIndex])
 
   const [board, setBoard] = useState<Board>(currentBoard ? {name: currentBoard.name, columns: currentBoard.columns} 
                             : {
@@ -67,13 +59,11 @@ const BoardForm = ({ setShowBoardForm, title, boardIndex=null, currentBoard=null
           columns: board.columns,
           id: boardIndex
       }
-console.log("BOARD INDEX: ", boardIndex)
-    if(boardIndex !== null){
+
+      if(boardIndex !== null){
       dispatch(editBoard(boardData))
-      // dispatch(setDisplayBoard(boardData))
     } else {
       dispatch(addBoard(boardData))
-      // dispatch(setDisplayBoard(boardData))
     }
 
     setShowBoardForm(false)

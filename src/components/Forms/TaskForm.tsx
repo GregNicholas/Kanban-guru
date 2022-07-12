@@ -3,36 +3,60 @@ import ModalContainer from '../ModalContainer'
 import Select from '../Select'
 import Button from '../Button'
 import FormLabel from './FormLabel'
-import { Task } from '../../types'
+import { useDispatch } from 'react-redux'
+import { addTask, editTask, deleteTask } from '../../features/boardsSlice'
+import { Task, Board } from '../../types'
+// import { StringDecoder } from 'string_decoder'
 
 type TaskFormProps = {
-  setShowTaskForm: React.Dispatch<React.SetStateAction<boolean>>
   title: string
+  currentTask?: Task | null
+  board: Board
+  column?: string 
+  setShowTaskForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const TaskForm = ({ setShowTaskForm, title }:TaskFormProps) => {
-  const columns = ["TODO", "DOING", "DONE"]
-  const [taskTitle, setTaskTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [statusValue, setStatusValue] = useState(columns[0])
+const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:TaskFormProps) => {
+  const columns = board.columns.map(column => column.name)
+  let columnName = column ? column : columns[0]
+
   const [subtaskInputs, setSubtaskInputs] = useState([{title: '', placeHolder: 'e.g. Make coffee'}, {title: '', placeHolder: 'e.g. Drink coffee and smile'}])
-  const [newTask, setNewTask] = useState<Task | {}>({})
+
+  const dispatch = useDispatch()
+
+  const [task, setTask] = useState<Task>(currentTask 
+                    ? {
+                        title: currentTask.title, 
+                        description: currentTask.description, 
+                        status: currentTask.status,
+                        subtasks: [...currentTask.subtasks]
+                      } 
+                    : {
+                      title: "", 
+                      description: "", 
+                      status: columnName,
+                      subtasks: [{title: '', isCompleted: false}]
+                    })
 
   const inputTemplateStyle = "text-[13px] font-medium text-black dark:text-white border border-l-lines dark:border-m-gray rounded dark:bg-d-gray"
 
-  const changeTaskInput = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-    const newSubtasks = [...subtaskInputs]
+  const changeSubtaskInput = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSubtasks = task.subtasks.map(sub => ({ ...sub }))
     newSubtasks[index].title = e.target.value
-    setSubtaskInputs(newSubtasks)
+    setTask(prev => ({
+      ...prev,
+      subtasks: newSubtasks
+    }))
   }
 
-  const addTask = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const addSubtask = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    setSubtaskInputs((prev) => [
-      ...prev,
-      { title: "", placeHolder: "enter subtask" }
-    ])
+    const newSubtasks = task.subtasks.map(sub => ({ ...sub }))
+    newSubtasks.push({ title: "", isCompleted: false })
+    setTask((prev) => ({
+      ...prev, 
+      subtasks: newSubtasks
+    }))
   }
 
   const removeSubtask = (index: number, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -44,10 +68,17 @@ const TaskForm = ({ setShowTaskForm, title }:TaskFormProps) => {
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setNewTask({title: taskTitle, description: description, status: statusValue, subtasks: subtaskInputs})
+    const newTask = {title: task.title, description: task.description, status: task.status, subtasks: [...task.subtasks]}
     setShowTaskForm(false)
-
-    console.log(newTask)
+    if(!currentTask){
+      console.log("NOT A CURRENT TASK")
+      dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))
+    } else {
+          console.log("move task to new column")
+          dispatch(deleteTask({taskTitle: task.title, boardName: board.name, columnName: columnName}))
+          dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))      
+    }
+    
   }
 
   return (
@@ -62,44 +93,50 @@ const TaskForm = ({ setShowTaskForm, title }:TaskFormProps) => {
               Title
               <input className={`${inputTemplateStyle} h-full w-full mr-4 mb-6 pl-4 py-2`} 
                      type="text" 
-                     value={taskTitle}
-                     onChange={e => setTaskTitle(e.target.value)}
-                     placeholder="e.g. Take coffee break" />
+                     value={task.title}
+                     onChange={e => setTask(prev => ({...prev, title: e.target.value}))}
+                     placeholder="e.g. Take coffee break" 
+                     required
+              />
             </FormLabel>
             <FormLabel>
               Description
               <textarea 
                 className={`${inputTemplateStyle} h-28 w-full mr-4 mb-6 pl-4 py-2`}
-                value={description}
-                onChange={e => setDescription(e.target.value)}
+                value={task.description}
+                onChange={e => setTask(prev => ({...prev, description: e.target.value}))}
                 placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little." 
               />
             </FormLabel>
             <div className="flex flex-col mb-6">
             <h5 className="leading-6 mb-1 text-m-gray font-bold dark:text-white">Subtasks</h5>
             {
-              subtaskInputs.map((data, index)=>{
-                  const {title, placeHolder}= data;
+              task.subtasks.map((data, index)=>{
+                  const {title}= data;
                   return(
                     <div className="h-10 flex items-center w-full mb-3" key={index}>
                     <input className={`${inputTemplateStyle} h-full w-full mr-4 pl-4 py-2`}
-                           onChange={(e) => changeTaskInput(index, e)}
+                           onChange={(e) => changeSubtaskInput(index, e)}
                            value={title}
                            type="text" 
-                           placeholder={placeHolder} 
+                           placeholder={"e.g. Make coffee"} 
                            aria-label="new subtask"
                     /> 
-                    {(subtaskInputs.length!==1)? <button className="text-2xl font-bold" onClick={(e)=> removeSubtask(index, e)}>x</button>:''}
+                    {(task.subtasks.length!==1)? <button className="text-2xl font-bold" onClick={(e)=> removeSubtask(index, e)}>x</button>:''}
                     </div>
                   )
               })
             }
-            <Button text="+ Add New Subtask" onClick={addTask} primary={false} />
+            <Button text="+ Add New Subtask" onClick={addSubtask} primary={false} />
             </div>
             <div className="mb-6">
             <FormLabel>
               Status
-              <Select currentStatus={statusValue} handleStatusChange={(e) => setStatusValue(e.target.value)} columns={columns} />
+              <Select 
+                currentStatus={task.status} 
+                handleStatusChange={(e) => setTask(prev => ({...prev, status: e.target.value}))} 
+                columns={columns} 
+              />
             </FormLabel>
             </div>
             <div className="flex flex-col">

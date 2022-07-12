@@ -72,7 +72,7 @@ const Header = ({ isDarkMode, showSidebar }:HeaderProps) => {
                     </div>
                   </>
                 : null }
-                {showTaskForm && <TaskForm setShowTaskForm={setShowTaskForm} title="Add New Task" />}
+                {showTaskForm && <TaskForm setShowTaskForm={setShowTaskForm} board={displayBoard} title="Add New Task" />}
                 {showModal && <EditModal 
                                 editText="Edit Board" 
                                 deleteText="Delete Board"

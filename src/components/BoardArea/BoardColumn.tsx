@@ -17,7 +17,7 @@ const BoardColumn = ({ index, columns, column }:ColumnProps) => {
         <span className="tracking-widest">{column.name} ({column.tasks.length})</span>
       </div>
       {column.tasks.length > 0 &&
-        column.tasks.map((task, index) => <TaskListItem key={`${task.title}${index}`} column={column.name} columns={columns} task={task} />)
+        column.tasks.map((task, index) => <TaskListItem key={`${task.title}${index}`} index={index} column={column.name} columns={columns} task={task} />)
       }
     </div>
   )

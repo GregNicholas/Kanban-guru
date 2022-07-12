@@ -9,17 +9,17 @@ import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { deleteTask } from '../../features/boardsSlice'
-// import { setDisplayBoard } from '../../features/displayBoardSlice'
 import { Task } from '../../types'
 
 type TaskModalProps = {
+    index: number
     task: Task
     columns: string[]
     column: string
     toggleTaskView: () => void
 }
 
-const TaskModal = ({ task, columns, column, toggleTaskView }:TaskModalProps) => {
+const TaskModal = ({ index, task, columns, column, toggleTaskView }:TaskModalProps) => {
   const [currentStatus, setCurrentStatus] = useState(task.status)
   const [subtasks, setSubtasks] = useState(task.subtasks)
   const [showModal, setShowModal] = useState(false)
@@ -29,7 +29,7 @@ const TaskModal = ({ task, columns, column, toggleTaskView }:TaskModalProps) => 
   const dispatch = useDispatch()
 
   const displayBoardIndex = useSelector((state: RootState) => state.board.value)
-  const boardName = useSelector((state: RootState) => state.boards.value[displayBoardIndex].name)
+  const board = useSelector((state: RootState) => state.boards.value[displayBoardIndex])
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentStatus(e.target.value)
@@ -47,13 +47,13 @@ const TaskModal = ({ task, columns, column, toggleTaskView }:TaskModalProps) => 
   }
 
   const handleDelete = () => {
-    dispatch(deleteTask({taskTitle: task.title, boardName: boardName, columnName: column}))
+    dispatch(deleteTask({taskTitle: task.title, boardName: board.name, columnName: column}))
   }
   
   return (
     <ModalContainer>
       {
-        showEditTask ? <TaskForm title="Edit Task" setShowTaskForm={setShowEditTask}/>
+        showEditTask ? <TaskForm title="Edit Task" currentTask={task} board={board} column={column} setShowTaskForm={setShowEditTask}/>
         : showDeleteWarning 
         ? <DeleteWarning 
             closeModal={() => setShowDeleteWarning(false)} 
@@ -98,7 +98,11 @@ const TaskModal = ({ task, columns, column, toggleTaskView }:TaskModalProps) => 
           </div>
           <div>
             <h5 className="mb-2">Current Status</h5>
-            <Select currentStatus={currentStatus} handleStatusChange={handleStatusChange} columns={columns} />
+            <Select 
+              currentStatus={currentStatus} 
+              handleStatusChange={handleStatusChange} 
+              columns={columns} 
+            />
           </div>
           
         </div>
