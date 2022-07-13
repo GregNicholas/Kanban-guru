@@ -15,10 +15,6 @@ const SelectBoardTitle = ({ board, index }:titleProps) => {
 
   const dispatch = useDispatch()
 
-  if(displayBoard === index){
-    console.log(index)
-  }
-
   let selectedStyle = displayBoard === index
       ? 
       "bg-main-purple text-white fill-white" 

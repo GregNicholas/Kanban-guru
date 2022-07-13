@@ -6,9 +6,15 @@ type Props = {
   };
 
 const ModalContainer = ({ children, closeModal }:Props) => {
+  const close = () => {
+    if(closeModal){
+      closeModal(false)
+    }
+  }
+
   return (
     <div className="absolute top-0 left-0 p-4 h-fit min-h-full w-full text-xs text-m-gray bg-filter flex items-center justify-center"
-         onClick={() => { closeModal ? closeModal(false) : console.log("NO close")}}
+         onClick={close}
     >
         {children}
     </div>

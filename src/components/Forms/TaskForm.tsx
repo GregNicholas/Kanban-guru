@@ -4,9 +4,8 @@ import Select from '../Select'
 import Button from '../Button'
 import FormLabel from './FormLabel'
 import { useDispatch } from 'react-redux'
-import { addTask, editTask, deleteTask } from '../../features/boardsSlice'
+import { addTask, deleteTask } from '../../features/boardsSlice'
 import { Task, Board } from '../../types'
-// import { StringDecoder } from 'string_decoder'
 
 type TaskFormProps = {
   title: string
@@ -14,13 +13,12 @@ type TaskFormProps = {
   board: Board
   column?: string 
   setShowTaskForm: React.Dispatch<React.SetStateAction<boolean>>
+  toggleTaskView?: (() => void) | null
 }
 
-const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:TaskFormProps) => {
+const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm, toggleTaskView=null }:TaskFormProps) => {
   const columns = board.columns.map(column => column.name)
   let columnName = column ? column : columns[0]
-
-  const [subtaskInputs, setSubtaskInputs] = useState([{title: '', placeHolder: 'e.g. Make coffee'}, {title: '', placeHolder: 'e.g. Drink coffee and smile'}])
 
   const dispatch = useDispatch()
 
@@ -61,9 +59,9 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:Ta
 
   const removeSubtask = (index: number, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    const newSubtasks = [...subtaskInputs]
+    const newSubtasks = [...task.subtasks]
     newSubtasks.splice(index, 1)
-    setSubtaskInputs(newSubtasks)
+    setTask(prev => ({...prev, subtasks: newSubtasks}))
   }
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
@@ -71,14 +69,14 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:Ta
     const newTask = {title: task.title, description: task.description, status: task.status, subtasks: [...task.subtasks]}
     setShowTaskForm(false)
     if(!currentTask){
-      console.log("NOT A CURRENT TASK")
       dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))
     } else {
-          console.log("move task to new column")
           dispatch(deleteTask({taskTitle: task.title, boardName: board.name, columnName: columnName}))
           dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))      
     }
-    
+    if(toggleTaskView !== null){
+      toggleTaskView()
+    }
   }
 
   return (
@@ -106,6 +104,7 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:Ta
                 value={task.description}
                 onChange={e => setTask(prev => ({...prev, description: e.target.value}))}
                 placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little." 
+                required
               />
             </FormLabel>
             <div className="flex flex-col mb-6">
@@ -121,8 +120,9 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:Ta
                            type="text" 
                            placeholder={"e.g. Make coffee"} 
                            aria-label="new subtask"
+                           required
                     /> 
-                    {(task.subtasks.length!==1)? <button className="text-2xl font-bold" onClick={(e)=> removeSubtask(index, e)}>x</button>:''}
+                    <button className="text-2xl font-bold" onClick={(e)=> removeSubtask(index, e)}>x</button>
                     </div>
                   )
               })
@@ -140,7 +140,7 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm }:Ta
             </FormLabel>
             </div>
             <div className="flex flex-col">
-              <Button type="submit" text={title === "Add New Task" ? "Create Task" : "Save Changes"} onClick={() => console.log("Create TASK")} />
+              <Button type="submit" text={title === "Add New Task" ? "Create Task" : "Save Changes"} />
             </div>
           </form>
         </div>

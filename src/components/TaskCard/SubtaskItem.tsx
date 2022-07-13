@@ -10,7 +10,7 @@ const SubtaskItem = ({ subtask, changeSubtaskStatus }:SubtaskProps) => {
 
   return (
     <li key={subtask.title} className="flex items-center h-10 mb-2 rounded bg-l-gray dark:bg-v-dark-gray">
-        <label>
+        <label className="flex">
         <input 
             onChange={() => {
                 changeSubtaskStatus(subtask.title, !isChecked)

@@ -8,7 +8,7 @@ import DeleteWarning from '../DeleteWarning'
 import { RootState } from "../../app/store";
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { deleteTask } from '../../features/boardsSlice'
+import { addTask, deleteTask, editSubtasks } from '../../features/boardsSlice'
 import { Task } from '../../types'
 
 type TaskModalProps = {
@@ -20,26 +20,29 @@ type TaskModalProps = {
 }
 
 const TaskModal = ({ index, task, columns, column, toggleTaskView }:TaskModalProps) => {
-  const [currentStatus, setCurrentStatus] = useState(task.status)
-  const [subtasks, setSubtasks] = useState(task.subtasks)
   const [showModal, setShowModal] = useState(false)
   const [showEditTask, setShowEditTask] = useState(false)
   const [showDeleteWarning, setShowDeleteWarning] = useState(false)
-
+  const subtasks = [...task.subtasks]
+  const currentStatus = task.status
   const dispatch = useDispatch()
 
   const displayBoardIndex = useSelector((state: RootState) => state.board.value)
   const board = useSelector((state: RootState) => state.boards.value[displayBoardIndex])
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrentStatus(e.target.value)
+    const newTask = {...task, status: e.target.value}
+    dispatch(deleteTask({taskTitle: task.title, boardName: board.name, columnName: column}))
+    dispatch(addTask({task: newTask, boardName: board.name, columnName: column})) 
   }
 
-  const changeSubtaskStatus = (title: string, isChecked: boolean) => {
-    const newSubtasks = [...subtasks]
-    const index = newSubtasks.findIndex(el => el.title === title)
-    newSubtasks[index].isCompleted = isChecked
-    setSubtasks(newSubtasks)
+  const changeSubtaskStatus = (title: string) => {
+    const newSubtasks = subtasks.map(subtask => {
+      return subtask.title !== title ? subtask
+             : {...subtask, isCompleted: !subtask.isCompleted}
+    })
+    const newTask = {...task, subtasks: newSubtasks}
+    dispatch(editSubtasks({task: newTask, index: index, boardName: board.name, columnName: column}))
   }
 
   const handleDeleteWarning = () => {
@@ -53,7 +56,7 @@ const TaskModal = ({ index, task, columns, column, toggleTaskView }:TaskModalPro
   return (
     <ModalContainer>
       {
-        showEditTask ? <TaskForm title="Edit Task" currentTask={task} board={board} column={column} setShowTaskForm={setShowEditTask}/>
+        showEditTask ? <TaskForm title="Edit Task" currentTask={task} board={board} column={column} setShowTaskForm={setShowEditTask} toggleTaskView={toggleTaskView}/>
         : showDeleteWarning 
         ? <DeleteWarning 
             closeModal={() => setShowDeleteWarning(false)} 
@@ -91,7 +94,7 @@ const TaskModal = ({ index, task, columns, column, toggleTaskView }:TaskModalPro
                 return <SubtaskItem 
                           key={subtask.title}
                           subtask={subtask} 
-                          changeSubtaskStatus={changeSubtaskStatus}
+                          changeSubtaskStatus={() => changeSubtaskStatus(subtask.title)}
                        />
               })}
             </ul>

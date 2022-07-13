@@ -28,7 +28,7 @@ return (
           }
           </div>
           :
-          <div className="flex gap-6 w-fit overflow-scroll">
+          <div className="flex gap-6 w-fit overflow-scroll h-full">
             {displayBoard.columns.map((column, index) => (
                 <BoardColumn key={`${column.name}${index}`} index={index} columns={columns} column={column} />
             )) }
