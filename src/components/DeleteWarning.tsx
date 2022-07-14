@@ -9,8 +9,8 @@ type DeleteWarningProps = {
 }
 
 const DeleteWarning = ({ closeModal, handleDelete, title, message }: DeleteWarningProps) => {
-  const confirmDeleteStyle = "bg-red text-white w-[200px]"
-  const cancelDeleteStyle = "bg-[#e6e6ff] dark:bg-white text-main-purple w-[200px]"
+  const confirmDeleteStyle = "bg-red hover:bg-red-hover text-white w-[200px]"
+  const cancelDeleteStyle = "bg-[#e6e6ff] hover:bg-white border dark:bg-white text-main-purple w-[200px]"
 
   return (
     <ModalContainer>

@@ -11,11 +11,11 @@ type ButtonProps = {
 
 const Button = ({ type="button", text, onClick, primary=true, customStyle=false, widthFull=true }:ButtonProps) => {
   const color = customStyle ? customStyle
-                        : primary ? "text-white bg-main-purple hover:bg-main-purple-hover active:bg-white active:border active:text-main-purple"
-                        : "text-main-purple bg-main-purple-hover dark:bg-white"
+                        : primary ? "text-white bg-main-purple hover:bg-main-purple-hover hover:text-main-purpleactive:bg-white active:border active:text-main-purple"
+                        : "text-main-purple bg-main-purple-hover hover:bg-main-purple hover:text-white dark:hover:bg-main-purple-hover dark:bg-white"
   const width = widthFull ? "w-full" : null
-  return (
-    <button type={type} className={`${color} ${width} font-bold rounded-3xl px-4 py-3 min-w-[162px]`}
+  return ( 
+    <button type={type} className={`${color} ${width} box-border font-bold rounded-3xl px-4 py-3 min-w-[162px]`}
       onClick={onClick}
     >
         {text}
