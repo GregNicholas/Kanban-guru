@@ -1,23 +1,24 @@
-# Frontend Mentor - Kanban task management web app solution
+# Frontend Mentor - Kanban task management web app 
 
-## Work in progress!
+## Work in progress
 
-This is my solution to the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is my solution to the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB).  
 
 ## Table of contents
 
 - [Overview](#overview)
-  - [The challenge](#the-challenge)
+  - [Requirements](#requirements)
   - [Screenshot](#screenshot)
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
+  - [Things to add](#things-to-add)
 - [Author](#author)
 
 ## Overview
 
-### The challenge
+### Requirements
 
 Users should be able to:
 
@@ -34,7 +35,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![Dark Mode](./public/assets/kanbanguru-screenshot.png)
 
 ### Links
 
@@ -54,13 +55,19 @@ Users should be able to:
 
 ### What I learned
 
-I learned a lot while building this project!
+I learned a lot while building this project! I wanted to take on a challenging project and build it from scratch. I used this project as an opportunity to strengthen some skills:
 
 - I used tailwind for the first time while building this.
 - I learned and used Redux for the first time. During the process, I took a break and worked on a small demo app on the side to learn redux and redux toolkit.
 - As an added challenge, I used TypeScript, which I had only made smaller projects with before. The more I work with it, the more I like it and the more comfortable I get.
 - I was going to use React Context for state, which I had used before, but as I was figuring out how to use it with TypeScript, I thought, this would be the perfect time to learn Redux. So I went ahead and built out the structure and style, then dove into Redux.
 - to be continued...
+
+### Things to add
+- improve mobile styles
+- save to local state
+- save to firebase
+- consider building a backend for the project
 
 
 ## Author

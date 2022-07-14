@@ -17,7 +17,7 @@ const Sidebar = (
         setShowSidebar, 
     }:SidebarProps) => {
         return (
-            <div className={`${!showSidebar && "hidden"} flex flex-col justify-between md:w-[261px] lg:w-[300px] h-screen border-r border-l-lines pt-8 dark:bg-d-gray dark:border-d-lines`}>
+            <div className={`hidden md:flex md:flex-col ${!showSidebar && "md:hidden"} justify-between md:w-[261px] lg:w-[300px] h-screen border-r border-l-lines pt-8 dark:bg-d-gray dark:border-d-lines`}>
                 <div>
                     <Logo isDarkMode={isDarkMode} showSidebar={showSidebar} />
                     <SelectBoard />

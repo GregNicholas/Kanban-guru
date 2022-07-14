@@ -15,7 +15,7 @@ const BoardArea = () => {
 const columns:string[] = displayBoard?.columns.map(column => column.name)
 
 return (
-    <main className="flex-1 bg-l-gray dark:bg-v-dark-gray p-6 overflow-scroll">
+    <main className="flex-1 bg-l-gray dark:bg-v-dark-gray overflow-scroll">
         { 
           (displayBoard?.name === "") || !displayBoard ? 
           <div className="text-center relative top-1/3 font-bold">
@@ -28,7 +28,7 @@ return (
           }
           </div>
           :
-          <div className="flex gap-6 w-fit overflow-scroll h-full">
+          <div className="flex p-6 mb-6 gap-6 w-fit overflow-scroll h-full">
             {displayBoard.columns.map((column, index) => (
                 <BoardColumn key={`${column.name}${index}`} index={index} columns={columns} column={column} />
             )) }
