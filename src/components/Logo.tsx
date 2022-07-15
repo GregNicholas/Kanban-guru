@@ -7,9 +7,11 @@ type LogoProps = {
 
 const Logo = ({ isDarkMode, showSidebar }:LogoProps) => {
   const logoSource = `${process.env.PUBLIC_URL}/assets/${isDarkMode ? "logo-light.svg" : "logo-dark.svg"}`
-  const logoClasses = showSidebar ? "pl-8" : "absolute left-6 top-9"
+  const logoClasses = showSidebar ? "pl-8 sm:inline" : "absolute left-6 top-9 md:inline"
   return (
-        <img className={`h-6 mb-14 ${logoClasses}`} src={logoSource} alt="kanban logo" />
+      <>
+        <img className={`hidden h-6 mb-14 ${logoClasses}`} src={logoSource} alt="kanban logo" />
+      </>
   )
 }
 

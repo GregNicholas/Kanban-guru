@@ -26,7 +26,10 @@ function App() {
           showSidebar={showSidebar} setShowSidebar={setShowSidebar} 
       />
       <div className="flex flex-col flex-1 overflow-scroll">
-        <Header isDarkMode={isDarkMode} showSidebar={showSidebar} />
+        <Header 
+            isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} 
+            showSidebar={showSidebar} setShowSidebar={setShowSidebar} 
+         />
         <BoardArea />
       </div>
       {!showSidebar && <ShowSidebar setShowSidebar={setShowSidebar} />}
