@@ -111,6 +111,7 @@ const Header = ({ isDarkMode, setIsDarkMode, showSidebar, setShowSidebar }:Heade
                 }
                 {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" boardIndex={displayBoardIndex} currentBoard={displayBoard} />}
             </div>
+            <div className="sm:hidden">
             {showSidebar && 
                 <ModalContainer closeModal={() => setShowSidebar(false)}>
                     <Sidebar 
@@ -120,6 +121,7 @@ const Header = ({ isDarkMode, setIsDarkMode, showSidebar, setShowSidebar }:Heade
                     />
                 </ModalContainer>
             }
+            </div>
         </header>
     )
 }
