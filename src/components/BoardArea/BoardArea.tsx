@@ -1,15 +1,18 @@
+import { useState } from 'react'
 import Button from '../Button'
 import BoardColumn from './BoardColumn'
 import NewColumn from './NewColumn'
+import BoardForm from '../Forms/BoardForm'
 import { RootState } from "../../app/store";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const BoardArea = () => {
+  const [showBoardForm, setShowBoardForm] = useState(false)
   const displayBoardIndex = useSelector((state: RootState) => state.board.value)
   const displayBoard = useSelector((state: RootState) => state.boards.value[displayBoardIndex])
 
     const addColumn = () => {
-        console.log("Add a new column")
+        setShowBoardForm((prev: boolean) => !prev)
     }
 
 const columns:string[] = displayBoard?.columns.map(column => column.name)
@@ -35,6 +38,7 @@ return (
             <NewColumn onClick={addColumn} />
           </div>
         }
+        {showBoardForm && <BoardForm setShowBoardForm={setShowBoardForm} title="Edit Board" boardIndex={displayBoardIndex} currentBoard={displayBoard} />}
     </main>
   )
 }

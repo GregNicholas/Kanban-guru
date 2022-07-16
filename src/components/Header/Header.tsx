@@ -53,7 +53,6 @@ const Header = ({ isDarkMode, setIsDarkMode, showSidebar, setShowSidebar }:Heade
 
     const showBoardsListMobile = (e:React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
-        console.log("SHOWBOARDS LITSe")
         setShowSidebar(prev => !prev)
     }
     
