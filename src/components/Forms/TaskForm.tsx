@@ -4,7 +4,7 @@ import Select from '../Select'
 import Button from '../Button'
 import FormLabel from './FormLabel'
 import { useDispatch } from 'react-redux'
-import { addTask, deleteTask } from '../../features/boardsSlice'
+import { addTask, editTask, deleteTask } from '../../features/boardsSlice'
 import { Task, Board } from '../../types'
 
 type TaskFormProps = {
@@ -66,13 +66,18 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm, tog
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    // console.log("CUR: ", currentTask)
     const newTask = {title: task.title, description: task.description, status: task.status, subtasks: [...task.subtasks]}
     setShowTaskForm(false)
+    // console.log("NEW: ", newTask)
     if(!currentTask){
-      dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))
+      // console.log("add a new task")
+      // dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))
     } else {
-          dispatch(deleteTask({taskTitle: task.title, boardName: board.name, columnName: columnName}))
-          dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))      
+      // console.log("edit the current task")
+        dispatch(editTask({prevTaskTitle: currentTask.title, task: newTask, boardName: board.name, columnName: columnName }))
+          // dispatch(deleteTask({taskTitle: task.title, boardName: board.name, columnName: columnName}))
+          // dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))      
     }
     if(toggleTaskView !== null){
       toggleTaskView()
@@ -104,7 +109,6 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm, tog
                 value={task.description}
                 onChange={e => setTask(prev => ({...prev, description: e.target.value}))}
                 placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little." 
-                required
               />
             </FormLabel>
             <div className="flex flex-col mb-6">

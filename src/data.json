@@ -366,7 +366,61 @@
         },
         {
           "name": "Doing",
-          "tasks": []
+          "tasks": [
+            {
+              "title": "one",
+              "description": "onesies",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Write article",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Publish on LinkedIn",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Publish on Inndie Hackers",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Publish on Medium",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "two",
+              "description": "",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Write article",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Publish on LinkedIn",
+                  "isCompleted": false
+                },
+                {
+                  "title": "Publish on Inndie Hackers",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "title": "three",
+              "description": "threesies",
+              "status": "Doing",
+              "subtasks": [
+                {
+                  "title": "Write article",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
         },
         {
           "name": "Done",

@@ -33,6 +33,16 @@ export const boardsSlice = createSlice({
             const column = board?.columns.find(column => column.name === action.payload.task.status)
             column?.tasks.unshift(action.payload.task)
         },
+        editTask: (state, action: PayloadAction<{ prevTaskTitle: string; task: Task; boardName: string; columnName: string }>) =>{
+            const board = state.value.find(board => board.name === action.payload.boardName)
+            console.log("board: ", board?.name)
+            const column = board?.columns.find(column => column.name === action.payload.columnName)
+            console.log("Col: ", column)
+            const taskIndex = column?.tasks.map(task => task.title).indexOf(action.payload.prevTaskTitle)
+            if(column && typeof taskIndex === "number" && taskIndex >= 0){
+                column.tasks[taskIndex] = action.payload.task
+            }
+        },
         editSubtasks: (state, action: PayloadAction<{ task: Task; index: number; boardName: string; columnName: string }>) => {
             const board = state.value.find(board => board.name === action.payload.boardName)
             const column = board?.columns.find(column => {
@@ -64,6 +74,6 @@ export const boardsSlice = createSlice({
     }
 })
 
-export const { getExistingBoards, addBoard, editBoard, deleteBoard, addTask, editSubtasks, changeTaskStatus, deleteTask } = boardsSlice.actions
+export const { getExistingBoards, addBoard, editBoard, deleteBoard, addTask, editTask, editSubtasks, changeTaskStatus, deleteTask } = boardsSlice.actions
 
 export default boardsSlice.reducer
