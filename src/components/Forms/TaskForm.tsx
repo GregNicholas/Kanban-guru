@@ -70,8 +70,11 @@ const TaskForm = ({ title, currentTask=null, board, column, setShowTaskForm, tog
     setShowTaskForm(false)
     if(!currentTask){
       dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))
-    } else {
+    } else if(newTask.status === columnName) {
         dispatch(editTask({prevTaskTitle: currentTask.title, task: newTask, boardName: board.name, columnName: columnName }))
+    } else {
+      dispatch(deleteTask({taskTitle: currentTask.title, boardName: board.name, columnName: columnName }))
+      dispatch(addTask({task: newTask, boardName: board.name, columnName: columnName}))
     }
     if(toggleTaskView !== null){
       toggleTaskView()

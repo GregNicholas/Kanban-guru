@@ -35,7 +35,7 @@ export const boardsSlice = createSlice({
         },
         editTask: (state, action: PayloadAction<{ prevTaskTitle: string; task: Task; boardName: string; columnName: string }>) =>{
             const board = state.value.find(board => board.name === action.payload.boardName)
-            const column = board?.columns.find(column => column.name === action.payload.columnName)
+            const column = board?.columns.find(column => column.name === action.payload.task.status)
             const taskIndex = column?.tasks.map(task => task.title).indexOf(action.payload.prevTaskTitle)
             if(column && typeof taskIndex === "number" && taskIndex >= 0){
                 column.tasks[taskIndex] = action.payload.task
