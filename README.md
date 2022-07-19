@@ -45,7 +45,6 @@ Users should be able to:
 
 - [React](https://reactjs.org/) - JS library
 - [TypeScript](https://www.typescriptlang.org/)
-- [Redux](https://redux-toolkit.js.org/)
 - [Redux](https://redux.js.org/)
 - [Redux toolkit](https://redux-toolkit.js.org/)
 - [tailwind](https://tailwindcss.com/) - For styles
