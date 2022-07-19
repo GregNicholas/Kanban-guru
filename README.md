@@ -1,8 +1,10 @@
 # Frontend Mentor - Kanban task management web app 
 
-## Work in progress
+### Links
 
-This is my solution to the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB).  
+- Live Site URL: [Kanban Guru](https://kanban-guru.netlify.app/))
+
+This is my solution to the [Kanban task management web app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB). My focus was frontend, along with function with state. I will come back to this for more backend work.
 
 ## Table of contents
 
@@ -37,10 +39,6 @@ Users should be able to:
 
 ![Dark Mode](./public/assets/kanbanguru-screenshot.png)
 
-### Links
-
-- Live Site URL: [Kanban Guru](https://kanban-guru.netlify.app/))
-
 ## My process
 
 ### Built with
@@ -60,14 +58,12 @@ I learned a lot while building this project! I wanted to take on a challenging p
 - I used tailwind for the first time while building this.
 - I learned and used Redux for the first time. During the process, I took a break and worked on a small demo app on the side to learn redux and redux toolkit.
 - As an added challenge, I used TypeScript, which I had only made smaller projects with before. The more I work with it, the more I like it and the more comfortable I get.
-- I was going to use React Context for state, which I had used before, but as I was figuring out how to use it with TypeScript, I thought, this would be the perfect time to learn Redux. So I went ahead and built out the structure and style, then dove into Redux.
+- I was going to use React Context for state, which I had used before, but as I was thinking out how to put it together, I thought, this would be the perfect time to learn Redux. So I went ahead and built out the structure and style, then dove into Redux.
 - to be continued...
 
 ### Things to add
-- improve mobile styles
-- save to local state
-- save to firebase
-- consider building a backend for the project
+- save data to local state
+- use firebase or building a backend for the project?
 
 
 ## Author
